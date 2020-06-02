@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Getting Started with Three.js</title>
+</head>
+<body>
+    <script src="three.js-master/build/three.min.js"></script>
+    <script>
+        const width = 800;
+        const height = 600;
+
+        const view_angle = 45;
+        const aspect = width / height;
+        const near = 0.1;
+        const far = 10000;
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(width, height);
+        document.body.appendChild(renderer.domElement);
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(
+            view_angle,          //Field of view
+            aspect,   //Aspect ratio
+            near,         //Near Plane
+            far        //Far Plane
+        );
+        camera.position.set(-50, 50, 50);
+        camera.lookAt(scene.position);
+
+
+        var box = new THREE.BoxGeometry(2, 4, 6);
+        var sphere = new THREE.SphereGeometry(5, 50, 50);
+        var circle = new THREE.CircleGeometry(5, 50);
+        var cylinder = new THREE.CylinderGeometry(5, 3, 6, 50, 50);
+        var cone = new THREE.ConeGeometry(3, 5, 50, 50);
+        var ring = new THREE.RingGeometry(4, 6, 50, 50);
+        //var polyhedron = new THREE.PolyhedronGeometry(5, 5, 5); //다면체
+        //var wireframe = new THREE.WireframeGeometry();
+        //var plane = new THREE.PlaneGeometry();
+        //var shape = new THREE.ShapeGeometry();
+
+        var material = new THREE.MeshLambertMaterial({ color: 0xFF0000 });
+        var boxMesh = new THREE.Mesh(box, material);  //여기서 geometry 변경
+        var sphereMesh = new THREE.Mesh(sphere, material);
+        var circleMesh = new THREE.Mesh(circle, material);
+        var cylinderMesh = new THREE.Mesh(cylinder, material);
+        var coneMesh = new THREE.Mesh(cone, material);
+        var ringMesh = new THREE.Mesh(ring, material);
+
+        boxMesh.position.x = -50;
+        sphereMesh.position.x = -30;
+        circleMesh.position.x = 0;
+        cylinderMesh.position.x = 30;
+        coneMesh.position.x = 50;
+        ringMesh.position.x = 70;
+
+        scene.add(boxMesh);
+        scene.add(sphereMesh);
+        scene.add(circleMesh);
+        scene.add(cylinderMesh);
+        scene.add(coneMesh);
+        scene.add(ringMesh);
+
+        var light = new THREE.PointLight(0xFFFF00);
+        light.position.set(10, 0, 10);
+        scene.add(light);
+
+        renderer.setClearColor(0xdddddd, 1);
+        renderer.render(scene, camera);
+
+    </script>
+</body>
+</html>
